@@ -41,7 +41,7 @@ Arrow		arrowY;
 Arrow		arrowZ;
 
 float t = 0.001f;			// Global variable for animation
-
+float deltaTime = 0.0f;
 
 
 int main()
@@ -55,17 +55,22 @@ int main()
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
 
+	
+	double currentTime = 0;
 	// MAIN LOOP run until the window is closed
 	do {										
-		double currentTime = glfwGetTime();		// retrieve timelapse
+		currentTime = glfwGetTime();		// retrieve timelapse		
+		
 		glfwPollEvents();						// poll callbacks
-		update(currentTime);					// update (physics, animation, structures, etc)
-		render(currentTime);					// call render function.
+		update(deltaTime);					// update (physics, animation, structures, etc)
+		render(deltaTime);					// call render function.
 
 		glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
 
 		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
 		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
+		deltaTime = glfwGetTime() - currentTime;
+		
 	} while (running);
 
 	myGraphics.endProgram();			// Close and clean everything up...
@@ -94,9 +99,17 @@ void startup() {
 	arrowZ.fillColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); arrowZ.lineColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	myGraphics.SetOptimisations();		// Cull and depth testing
+
+
+
+
+
+	
+
+
 }
 
-void update(double currentTime) {
+void update(double deltaTime) {
 
 	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 	glm::mat4 mv_matrix_cube = 
@@ -144,7 +157,7 @@ void update(double currentTime) {
 	t += 0.01f; // increment movement variable
 }
 
-void render(double currentTime) {
+void render(double deltaTime) {
 	// Clear viewport - start a new frame.
 	myGraphics.ClearViewport();
 

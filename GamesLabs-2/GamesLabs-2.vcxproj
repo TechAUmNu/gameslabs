@@ -126,11 +126,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="PointMass.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\Shapes.cpp" />
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="PointMass.h" />
     <ClInclude Include="src\Graphics.h" />
     <ClInclude Include="src\Shapes.h" />
   </ItemGroup>

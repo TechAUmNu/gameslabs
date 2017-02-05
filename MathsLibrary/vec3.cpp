@@ -1,6 +1,8 @@
 #include <iostream>
-
+#include "vec3.h"
 using namespace std;
+
+
 
 class vec3 {
 public:
@@ -18,6 +20,10 @@ public:
 
 	// default constructor
 	vec3() {
+	}
+
+	// deconstructor
+	~vec3() {
 	}
 
 
@@ -188,21 +194,3 @@ public:
 	}
 
 };
-
-// new code
-ostream &operator <<(ostream &stream, vec3 v) {
-	cout << "(" << v.x << "," << v.y << "," << v.z << ")";
-	return stream;
-};
-
-int main() {
-	vec3 v1(3, 6, 6);
-	vec3 v2(2, -2, 2);
-	vec3 v3 = v1 + v2;
-	cout << "v3 =" << v3 << endl;
-
-	cout << "\nPress any key to continue...\n";
-	cin.ignore(); cin.get(); // delay closing console to read debugging errors.
-
-	return 0;
-}
