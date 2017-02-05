@@ -1,0 +1,16 @@
+﻿  Source.cpp
+  Shapes.cpp
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(45): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(48): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(153): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+d:\games programming\gameslabs\gameslabs-1\src\shapes.cpp(157): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  Graphics.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  GamesLabs-1.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-1.exe
+  GamesLabs-1.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-1.pdb (Partial PDB)
