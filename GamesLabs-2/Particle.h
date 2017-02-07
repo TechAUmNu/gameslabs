@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "../PhysicsLibrary/PointMass.h";
+#include "../PhysicsLibrary/PointMass.h"
 #include "../MathsLibrary/vec4.h"
 
 class Particle : public PointMass{
