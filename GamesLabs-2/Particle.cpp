@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(vec3 pos, vec3 vel, vec3 force, vec3 frict, bool gravity, float mass, float lifespan, vec4 colour, float fadeDelay, float fadeRate) : PointMass(pos, vel, force, frict, gravity, mass)
+Particle::Particle(vec3 pos, vec3 vel, vec3 force, vec3 frict, bool gravity, float mass, float lifespan, vec4 colour, float fadeDelay, float fadeRate) : RigidBody(pos, vel, force, frict, gravity, mass)
 {
 	this->lifespan = lifespan;
 	this->colour = colour;
@@ -10,11 +10,11 @@ Particle::Particle(vec3 pos, vec3 vel, vec3 force, vec3 frict, bool gravity, flo
 
 // Called every frame
 void Particle::update(float deltaTime) {
-	PointMass::update(deltaTime);
+	RigidBody::update(deltaTime);
 
 	lifespan -= deltaTime;
 	if (lifespan > 0) {
-		PointMass::update(deltaTime);
+		RigidBody::update(deltaTime);
 		if (fadeDelay < 0 && colour.w > 0) {
 			colour.w -= fadeRate * deltaTime;
 		}

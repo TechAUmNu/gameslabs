@@ -68,4 +68,21 @@ public:
 
 	static float triplescal(vec3& v1, vec3& v2, vec3& v3);
 
+	static vec3 up();
+
+	static vec3 down();
+
+	static vec3 forward();
+
+	static vec3 back();
+
+	static vec3 left();
+
+	static vec3 right();
+
+	static vec3 one();
+
+	static vec3 zero();
+
+
 };

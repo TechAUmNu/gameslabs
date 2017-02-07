@@ -19,11 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PointMass.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="SphereCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="PointMass.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

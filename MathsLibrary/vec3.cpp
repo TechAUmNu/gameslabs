@@ -185,4 +185,38 @@ using namespace std;
 		return vec3::dot(v3, v1.cross(v2));
 	}
 
+	vec3 vec3::up() {
+		return vec3(0, 1, 0);
+	}
+
+	vec3 vec3::down() {
+		return vec3(0, -1, 0);
+	}
+
+	vec3 vec3::forward() {
+		return vec3(0, 0, 1);
+	}
+
+	vec3 vec3::back() {
+		return vec3(0, 0, -1);
+	}
+
+	vec3 vec3::left() {
+		return vec3(-1, 0, 0);
+	}
+
+	vec3 vec3::right() {
+		return vec3(1, 0, 0);
+	}
+
+	vec3 vec3::one() {
+		return vec3(1, 1, 1);
+	}
+
+	vec3 vec3::zero() {
+		return vec3(0, 0, 0);
+	}
+
+
+
 
