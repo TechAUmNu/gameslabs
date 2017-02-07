@@ -1,8 +1,5 @@
-﻿  vec3.cpp
-d:\games programming\gameslabs\mathslibrary\vec3.cpp(149): error C2801: 'vec3::operator ==' must be a non-static member
-d:\games programming\gameslabs\mathslibrary\vec3.cpp(149): error C2333: 'vec3::operator ==': error in function declaration; skipping function body
-d:\games programming\gameslabs\mathslibrary\vec3.cpp(157): error C2801: 'vec3::operator !=' must be a non-static member
-d:\games programming\gameslabs\mathslibrary\vec3.cpp(157): error C2333: 'vec3::operator !=': error in function declaration; skipping function body
-d:\games programming\gameslabs\mathslibrary\vec3.cpp(180): error C2663: 'vec3::cross': 2 overloads have no legal conversion for 'this' pointer
+﻿  vec4.cpp
+  vec3.cpp
   vec2.cpp
   Generating Code...
+  MathsLibrary.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\MathsLibrary.lib

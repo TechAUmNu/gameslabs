@@ -1,0 +1,7 @@
+﻿  SphereCollider.cpp
+  PointMass.cpp
+d:\games programming\gameslabs\physicslibrary\pointmass.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\games programming\gameslabs\physicslibrary\pointmass.cpp(17): warning C4305: '+=': truncation from 'double' to 'float'
+  BoxCollider.cpp
+  Generating Code...
+  PhysicsLibrary.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\PhysicsLibrary.lib

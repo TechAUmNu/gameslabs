@@ -5,13 +5,11 @@ using namespace std;
 
 
 
-class vec4 {
-public:
 
-	float x, y, z, w;
+
 
 	// populated constructor
-	vec4(float x, float y, float z, float w) {
+vec4::vec4(float x, float y, float z, float w) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -19,17 +17,17 @@ public:
 	}
 
 	// default constructor
-	vec4() {
+vec4::vec4() {
 	}
 
 	// deconstructor
-	~vec4() {
+vec4::~vec4() {
 	}
 
 
 	// Operators
 
-	vec4 operator+(const vec4& v1) {
+	vec4 vec4::operator+(const vec4& v1) {
 		return(vec4(
 			x + v1.x,
 			y + v1.y,
@@ -37,7 +35,7 @@ public:
 			w + v1.w));
 	};
 
-	vec4 operator+(float scalar) {
+	vec4 vec4::operator+(float scalar) {
 		return(vec4(
 			x + scalar,
 			y + scalar,
@@ -45,7 +43,7 @@ public:
 			w + scalar));
 	};
 
-	vec4 operator-(const vec4& v1) {
+	vec4 vec4::operator-(const vec4& v1) {
 		return(vec4(
 			x - v1.x,
 			y - v1.y,
@@ -53,7 +51,7 @@ public:
 			w - v1.w));
 	};
 
-	vec4 operator-(float scalar) {
+	vec4 vec4::operator-(float scalar) {
 		return(vec4(
 			x - scalar,
 			y - scalar,
@@ -61,7 +59,7 @@ public:
 			w - scalar));
 	};
 
-	vec4 operator*(const vec4& v1) {
+	vec4 vec4::operator*(const vec4& v1) {
 		return(vec4(
 			x * v1.x,
 			y * v1.y,
@@ -69,7 +67,7 @@ public:
 			w * v1.w));
 	};
 
-	vec4 operator*(float scalar) {
+	vec4 vec4::operator*(float scalar) {
 		return(vec4(
 			x * scalar,
 			y * scalar,
@@ -77,7 +75,7 @@ public:
 			w * scalar));
 	};
 
-	vec4 operator/(const vec4& v1) {
+	vec4 vec4::operator/(const vec4& v1) {
 		return(vec4(
 			x / v1.x,
 			y / v1.y,
@@ -85,7 +83,7 @@ public:
 			w / v1.w));
 	};
 
-	vec4 operator/(float scalar) {
+	vec4 vec4::operator/(float scalar) {
 		return(vec4(
 			x / scalar,
 			y / scalar,
@@ -98,7 +96,7 @@ public:
 
 
 
-	vec4 operator+=(const vec4& v1) {
+	vec4 vec4::operator+=(const vec4& v1) {
 		x += v1.x;
 		y += v1.y;
 		z += v1.z;
@@ -106,7 +104,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator+=(float scalar) {
+	vec4 vec4::operator+=(float scalar) {
 		x += scalar;
 		y += scalar;
 		z += scalar;
@@ -114,7 +112,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator-=(const vec4& v1) {
+	vec4 vec4::operator-=(const vec4& v1) {
 		x -= v1.x;
 		y -= v1.y;
 		z -= v1.z;
@@ -122,7 +120,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator-=(float scalar) {
+	vec4 vec4::operator-=(float scalar) {
 		x -= scalar;
 		y -= scalar;
 		z -= scalar;
@@ -130,7 +128,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator*=(const vec4& v1) {
+	vec4 vec4::operator*=(const vec4& v1) {
 		x *= v1.x;
 		y *= v1.y;
 		z *= v1.z;
@@ -138,7 +136,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator*=(float scalar) {
+	vec4 vec4::operator*=(float scalar) {
 		x *= scalar;
 		y *= scalar;
 		z *= scalar;
@@ -146,7 +144,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator/=(const vec4& v1) {
+	vec4 vec4::operator/=(const vec4& v1) {
 		x /= v1.x;
 		y /= v1.y;
 		z /= v1.z;
@@ -154,7 +152,7 @@ public:
 		return *this;
 	};
 
-	vec4 operator/=(float scalar) {
+	vec4 vec4::operator/=(float scalar) {
 		x /= scalar;
 		y /= scalar;
 		z /= scalar;
@@ -164,13 +162,13 @@ public:
 
 
 
-	bool operator==(const vec4& v1) {
+	bool vec4::operator==(const vec4& v1) {
 		return (v1.x == x) && (v1.y == y) && (v1.z == z) && (v1.w == w);
 	}
 
 
-	bool operator!=(const vec4& v1) {
+	bool vec4::operator!=(const vec4& v1) {
 		return (v1.x != x) || (v1.y != y) || (v1.z != z) || (v1.w != z);
 	}
 
-};
+
