@@ -1,17 +1,23 @@
 #pragma once
+
 #include "../MathsLibrary/vec3.h"
+#include "Material.h"
 
 class RigidBody{
 public:	
 
-	RigidBody(vec3 pos, vec3 vel, vec3 force, vec3 frict, bool gravity, float mass);
+	RigidBody(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass);
 	
 	void update(float deltaTime);
-
-protected:
-	vec3 position, velocity, acceleration, force, friction;
-	// Gravity Toggle
+	
+	vec3 position;
 	bool useGravity = false;
+	bool isKinematic = false;
+	Material material;
+	
+protected:
+	vec3 velocity, acceleration, force;
+	// Gravity Toggle
 	
 	float mass = 1.0f;
 	float drag = 0.1f;

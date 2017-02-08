@@ -21,6 +21,7 @@ using namespace std;
 
 #include "graphics.h"
 #include "shapes.h"
+#include "../PhysicsLibrary/SphereCollider.h"
 
 // FUNCTIONS
 void render(double currentTime);
@@ -34,11 +35,20 @@ bool		running = true;
 
 Graphics	myGraphics;		// Runing all the graphics in this object
 
-Cube		myCube;
+//Cube		myCube;
 Sphere		mySphere;
-Arrow		arrowX;
-Arrow		arrowY;
-Arrow		arrowZ;
+Sphere		mySphere2;
+//Arrow		arrowX;
+//Arrow		arrowY;
+//Arrow		arrowZ;
+
+
+Material materialRubber(0.8f, 0.6f, 0.8f);
+Material materialSteel(0.4f, 0.1f, 0.15f);
+SphereCollider sphere(vec3(-2.0f, 10.0f, -20.0f), vec3::zero(), vec3::zero(), materialRubber, 0.1f, true, 1.0f, 2.0f);
+SphereCollider sphere2(vec3(2.0f, 10.0f, -20.0f), vec3::zero(), vec3::zero(), materialSteel, 0.1f, true, 1.0f, 2.0f);
+
+
 
 float t = 0.001f;			// Global variable for animation
 float deltaTime = 0.0f;
@@ -88,49 +98,51 @@ void startup() {
 	myGraphics.proj_matrix = glm::perspective(glm::radians(50.0f), myGraphics.aspect, 0.1f, 1000.0f);
 
 	// Load Geometry
-	myCube.Load();
+	//myCube.Load();
 	
 	mySphere.Load();
 	mySphere.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);	// You can change the shape fill colour, line colour or linewidth 
+	
+	mySphere2.Load();
+	mySphere2.fillColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);	// You can change the shape fill colour, line colour or linewidth 
 
-	arrowX.Load(); arrowY.Load(); arrowZ.Load();
-	arrowX.fillColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); arrowX.lineColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	arrowY.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); arrowY.lineColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-	arrowZ.fillColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); arrowZ.lineColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+
+
+	//arrowX.Load(); arrowY.Load(); arrowZ.Load();
+	//arrowX.fillColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); arrowX.lineColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	//arrowY.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f); arrowY.lineColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	//arrowZ.fillColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f); arrowZ.lineColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	myGraphics.SetOptimisations();		// Cull and depth testing
-
-
-
-
-
-	
 
 
 }
 
 void update(double deltaTime) {
 
-	// Calculate Cube movement ( T * R * S ) http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
-	glm::mat4 mv_matrix_cube = 
-		glm::translate(glm::vec3(2.0f, 0.0f, -6.0f)) *
-		glm::rotate(t, glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::rotate(t, glm::vec3(1.0f, 0.0f, 0.0f)) * 
-		glm::mat4(1.0f);
-	myCube.mv_matrix = mv_matrix_cube;	
-	myCube.proj_matrix = myGraphics.proj_matrix;
+	
 
+	sphere.update(deltaTime);
+	sphere2.update(deltaTime);
 	// calculate Sphere movement
 	glm::mat4 mv_matrix_sphere = 
-		glm::translate(glm::vec3(-2.0f, 0.0f, -6.0f)) *
-		glm::rotate(-t, glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::rotate(-t, glm::vec3(1.0f, 0.0f, 0.0f)) *
-		glm::mat4(1.0f); 
+		glm::translate(glm::vec3(sphere.position.x, sphere.position.y, sphere.position.z)) *
+		glm::scale(glm::vec3(sphere.radius, sphere.radius, sphere.radius)) * 
+		glm::mat4(1.0f);
+		
 	mySphere.mv_matrix = mv_matrix_sphere;
 	mySphere.proj_matrix = myGraphics.proj_matrix;
 
+	glm::mat4 mv_matrix_sphere2 =
+		glm::translate(glm::vec3(sphere2.position.x, sphere2.position.y, sphere2.position.z)) *
+		glm::scale(glm::vec3(sphere2.radius, sphere2.radius, sphere2.radius)) *
+		glm::mat4(1.0f);
+
+	mySphere2.mv_matrix = mv_matrix_sphere2;
+	mySphere2.proj_matrix = myGraphics.proj_matrix;
+
 	//Calculate Arrows translations (note: arrow model points up)
-	glm::mat4 mv_matrix_x =
+	/*glm::mat4 mv_matrix_x =
 		glm::translate(glm::vec3(0.0f, 0.0f, -6.0f)) *
 		glm::rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *
 		glm::scale(glm::vec3(0.2f, 0.5f, 0.2f)) *
@@ -153,7 +165,7 @@ void update(double deltaTime) {
 		glm::mat4(1.0f);	
 	arrowZ.mv_matrix = mv_matrix_z;
 	arrowZ.proj_matrix = myGraphics.proj_matrix;
-
+	*/
 	t += 0.01f; // increment movement variable
 }
 
@@ -162,12 +174,14 @@ void render(double deltaTime) {
 	myGraphics.ClearViewport();
 
 	// Draw
-	myCube.Draw();
-	mySphere.Draw();
+	//myCube.Draw();
 	
-	arrowX.Draw(); 
-	arrowY.Draw(); 
-	arrowZ.Draw();
+	mySphere.Draw();
+	mySphere2.Draw();
+	
+	//arrowX.Draw(); 
+	//arrowY.Draw(); 
+	//arrowZ.Draw();
 }
 
 void onResizeCallback(GLFWwindow* window, int w, int h) {	// call everytime the window is resized
@@ -181,6 +195,12 @@ void onResizeCallback(GLFWwindow* window, int w, int h) {	// call everytime the 
 void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) { // called everytime a key is pressed
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+		sphere.position = vec3(-2.0f, 10.0f, -20.0f);
+		sphere.isKinematic = false;
 
+		sphere2.position = vec3(2.0f, 10.0f, -20.0f);
+		sphere2.isKinematic = false;
+	}
 	//if (key == GLFW_KEY_LEFT) angleY += 0.05f;
 }

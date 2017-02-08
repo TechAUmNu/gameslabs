@@ -6,3 +6,14 @@ Material::Material(float staticFriction, float dynamicFriction, float coeffResti
 	this->dynamicFriction = dynamicFriction;
 	this->coeffRestitution = coeffRestitution;
 }
+
+Material::Material()
+{
+	staticFriction = 0.5;
+	dynamicFriction = 0.2;
+	coeffRestitution = 0.3f;
+}
+
+Material::~Material()
+{
+}

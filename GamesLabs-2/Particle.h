@@ -7,7 +7,7 @@
 class Particle : public RigidBody{
 public:
 
-	Particle(vec3 pos, vec3 vel, vec3 force, vec3 frict, bool gravity, float mass, float lifespan, vec4 colour, float fadeDelay, float fadeRate);
+	Particle(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass, float lifespan, vec4 colour, float fadeDelay, float fadeRate);
 
 	void update(float deltaTime);
 

@@ -1,2 +1,5 @@
-﻿  vec3.cpp
-  MathsLibrary.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\MathsLibrary.lib
+﻿  vec4.cpp
+  vec3.cpp
+  vec2.cpp
+  Generating Code...
+  MathsLibrary.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\MathsLibrary.lib

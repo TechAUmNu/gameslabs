@@ -1,24 +1,29 @@
 #include "RigidBody.h"
+#include <iostream>
+using namespace std;
 
-	RigidBody::RigidBody(vec3 pos, vec3 vel, vec3 force, vec3 frict, bool gravity, float mass) {
-		position = pos;
-		velocity = vel;
+	RigidBody::RigidBody(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass) {
+		this->position = position;
+		this->velocity = velocity;
 		this->force = force;
-		friction = frict;
+		this->material = material;
+		this->drag = drag;
 		this->useGravity = gravity;		
 		this->mass = mass;
 	}
 
 	// Called every frame
 	void RigidBody::update(float deltaTime) {
-		acceleration = (force + friction) / mass;
-		velocity += acceleration * deltaTime;
-		if (useGravity) {
-			velocity.y += -9.81f;
-		}
 		
-		position = velocity * deltaTime;
+		if (!isKinematic) {
+			acceleration = (force) / mass;
+			velocity += acceleration * deltaTime;
+			if (useGravity) {
+				velocity.y += -9.81f * deltaTime;
+			}
 
+			position += velocity * deltaTime;			
+		}
 	}
 
 
