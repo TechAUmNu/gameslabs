@@ -1,6 +1,7 @@
 #include "SphereCollider.h"
 #include <cmath>
 
+
 #include <iostream>
 using namespace std;
 SphereCollider::SphereCollider(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass, float radius) : RigidBody(position, velocity, force, material, drag, gravity, mass)
@@ -10,21 +11,80 @@ SphereCollider::SphereCollider(vec3 position, vec3 velocity, vec3 force, Materia
 
 void SphereCollider::update(float deltaTime)
 {
-	RigidBody::update(deltaTime);
+	
 	
 	// If touching or below the floor then bounce
 	if (position.y <= -8.0f) {		
-		if (!penetration) {
+		if (!penetrationBottom) {
 			velocity.y = -(velocity.y * material.coeffRestitution);
-			penetration = true;
+			penetrationBottom = true;
 		}
-		if (abs(velocity.y) < 0.1f) {
+		if (position.y <= -8.0f) {
+			float penetration = abs(-8.0f - position.y);
+			cout << penetration << " " << position.y <<  endl;
+			const float percent = 0.8; // usually 20% to 80%
+			const float slop = 0.000001; // usually 0.01 to 0.1
+			velocity.y += (fmax(penetration - slop, 0.0f) / 0.1 )* percent;
+		}
+		if (velocity.magnitude() < 0.5f) {
 			isKinematic = true;
 		}
 	}
 	else {
-		penetration = false;
+		penetrationBottom = false;
+	}
+
+	if (position.y >= 8.0f) {
+		if (!penetrationTop) {
+			velocity.y = -(velocity.y * material.coeffRestitution);
+			penetrationTop = true;
+		}
+		if (position.y >= 8.0f) {
+			float penetration = abs(8.0f - position.y);
+			const float percent = 0.8; // usually 20% to 80%
+			const float slop = 0.1; // usually 0.01 to 0.1
+			position.y -= fmax(penetration - slop, 0.0f) * percent;
+		}
+	
+	}
+	else {
+		penetrationTop = false;
+	}
+
+	if (position.x <= -10.0f) {
+		if (!penetrationLeft) {
+			velocity.x = -(velocity.x * material.coeffRestitution);
+			penetrationLeft = true;
+		}
+		if (position.x <= -10.0f) {
+			float penetration = abs(-10.0f - position.x);
+			const float percent = 0.8; // usually 20% to 80%
+			const float slop = 0.1; // usually 0.01 to 0.1
+			position.x += fmax(penetration - slop, 0.0f) * percent;
+		}
+		
+	}
+	else {
+		penetrationLeft = false;
+	}
+
+	if (position.x >= 10.0f) {
+		if (!penetrationRight) {
+			velocity.x = -(velocity.x * material.coeffRestitution);
+			penetrationRight = true;
+		}
+		if(position.x >= 10.0f){
+			float penetration = abs(10.0f - position.x);
+			const float percent = 0.8; // usually 20% to 80%
+			const float slop = 0.1; // usually 0.01 to 0.1
+			position.x -= fmax(penetration - slop, 0.0f) * percent;
+		}
+		
+	}
+	else {
+		penetrationRight = false;
 	}
 	
-
+	
+	RigidBody::update(deltaTime);
 }

@@ -217,6 +217,16 @@ using namespace std;
 		return vec3(0, 0, 0);
 	}
 
+	float vec3::magnitude()
+	{		
+		return sqrtf(x*x + y*y + z*z);
+	}
+
+	vec3 vec3::absolute()
+	{
+		return vec3(abs(x), abs(y), abs(z));
+	}
+
 
 
 

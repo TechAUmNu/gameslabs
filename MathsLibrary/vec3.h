@@ -84,5 +84,9 @@ public:
 
 	static vec3 zero();
 
+	float magnitude();
+
+	vec3 absolute();
+
 
 };

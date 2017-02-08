@@ -9,21 +9,58 @@ using namespace std;
 		this->material = material;
 		this->drag = drag;
 		this->useGravity = gravity;		
-		this->mass = mass;
+		this->mass = 1;
 	}
 
 	// Called every frame
 	void RigidBody::update(float deltaTime) {
 		
 		if (!isKinematic) {
-			acceleration = (force) / mass;
-			velocity += acceleration * deltaTime;
-			if (useGravity) {
-				velocity.y += -9.81f * deltaTime;
+			vec3 forceGrav;
+			forceGrav = vec3::zero();
+			forceGrav.y = -9.81f * mass;
+
+			if (velocity.y > 0) {
+
+				dragy.y = (velocity.y * velocity.y * -drag);
+			}
+			else {
+				dragy.y = (velocity.y * velocity.y * drag);
 			}
 
-			position += velocity * deltaTime;			
+			if (velocity.x > 0) {
+
+				dragy.x = (velocity.x * velocity.x * -drag);
+			}
+			else {
+				dragy.x = (velocity.x * velocity.x * drag);
+			}
+
+			if (velocity.z > 0) {
+
+				dragy.z = (velocity.z * velocity.z * -drag);
+			}
+			else {
+				dragy.z = (velocity.z * velocity.z * drag);
+			}
+			
+			//vec3 dragForce = ((velocity*velocity) * drag * 1 / 2);
+			acceleration = ((forceGrav + dragy) / mass);
+			
+			if (useGravity) {
+			//	acceleration.y += -9.81f;
+			}
+			velocity += acceleration * deltaTime;
+			//cout << velocity.x << " " << velocity.y << " " << velocity.z <<  endl;
+			position += velocity *  deltaTime;
+			
 		}
+	}
+	/* Applies full velocity change at once so not really accurate */
+	void RigidBody::applyImpulse(vec3 force, float time)
+	{
+		acceleration = force / mass;
+		velocity += acceleration * time;
 	}
 
 

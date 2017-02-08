@@ -11,7 +11,7 @@ public:
 
 	void update(float deltaTime);
 	float radius;
-	bool penetration = false;
+	bool penetrationBottom = false, penetrationTop = false, penetrationLeft = false, penetrationRight = false;
 protected:
 	
 	

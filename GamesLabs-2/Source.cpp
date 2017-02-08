@@ -44,9 +44,9 @@ Sphere		mySphere2;
 
 
 Material materialRubber(0.8f, 0.6f, 0.8f);
-Material materialSteel(0.4f, 0.1f, 0.15f);
-SphereCollider sphere(vec3(-2.0f, 10.0f, -20.0f), vec3::zero(), vec3::zero(), materialRubber, 0.1f, true, 1.0f, 2.0f);
-SphereCollider sphere2(vec3(2.0f, 10.0f, -20.0f), vec3::zero(), vec3::zero(), materialSteel, 0.1f, true, 1.0f, 2.0f);
+Material materialSteel(0.4f, 0.1f, 0.5f);
+SphereCollider sphere(vec3(-2.0f, 8.0f, -20.0f), vec3::zero(), vec3::zero(), materialRubber, 0.1f, true, 1.0f, 2.0f);
+SphereCollider sphere2(vec3(2.0f, 8.0f, -20.0f), vec3::zero(), vec3::zero(), materialSteel, 0.2f, true, 1.0f, 2.0f);
 
 
 
@@ -197,10 +197,21 @@ void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
 		sphere.position = vec3(-2.0f, 10.0f, -20.0f);
+		sphere.velocity = vec3::zero();
 		sphere.isKinematic = false;
 
 		sphere2.position = vec3(2.0f, 10.0f, -20.0f);
+		sphere2.velocity = vec3::zero();
 		sphere2.isKinematic = false;
+	}
+	if (key == GLFW_KEY_I && action == GLFW_PRESS) {
+		sphere.isKinematic = false;
+		sphere2.isKinematic = false;
+
+		sphere.applyImpulse(vec3(50.0f, 30.0f, 0.0f), 1);
+		sphere2.applyImpulse(vec3(50.0f, 30.0f, 0.0f), 1);
+		
+
 	}
 	//if (key == GLFW_KEY_LEFT) angleY += 0.05f;
 }

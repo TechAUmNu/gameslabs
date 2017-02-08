@@ -13,5 +13,5 @@ d:\games programming\gameslabs\gameslabs-3\shapes.cpp(157): warning C4267: 'argu
   Graphics.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  GamesLabs-3.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\GamesLabs-ParticleExplosion.exe
-  GamesLabs-3.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\GamesLabs-ParticleExplosion.pdb (Partial PDB)
+  GamesLabs-3.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-ParticleExplosion.exe
+  GamesLabs-3.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-ParticleExplosion.pdb (Partial PDB)
