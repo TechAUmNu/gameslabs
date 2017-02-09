@@ -9,7 +9,7 @@ using namespace std;
 		this->material = material;
 		this->drag = drag;
 		this->useGravity = gravity;		
-		this->mass = 1;
+		this->mass = mass;
 	}
 
 	// Called every frame

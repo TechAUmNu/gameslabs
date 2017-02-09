@@ -1,4 +1,5 @@
 #pragma once
+#include <utility>
 
 class vec3 {
 
@@ -82,11 +83,14 @@ public:
 
 	static vec3 one();
 
-	static vec3 zero();
+	static vec3& zero();
 
 	float magnitude();
 
 	vec3 absolute();
+
+	static vec3 random(std::pair<vec3, vec3> velocityRange);
+
 
 
 };

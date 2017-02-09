@@ -1,2 +1,7 @@
-﻿  vec3.cpp
+﻿  vec4.cpp
+  vec3.cpp
+d:\games programming\gameslabs\mathslibrary\vec3.cpp(237): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  vec2.cpp
+  Generating Code...
+d:\games programming\gameslabs\mathslibrary\vec3.cpp(218): warning C4172: returning address of local variable or temporary
   MathsLibrary.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\MathsLibrary.lib

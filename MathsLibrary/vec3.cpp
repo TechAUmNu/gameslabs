@@ -1,6 +1,7 @@
 #include <iostream>
 #include "vec3.h"
-using namespace std;
+#include<random>
+
 
 
 	// populated constructor
@@ -213,7 +214,7 @@ using namespace std;
 		return vec3(1, 1, 1);
 	}
 
-	vec3 vec3::zero() {
+	vec3& vec3::zero() {
 		return vec3(0, 0, 0);
 	}
 
@@ -227,6 +228,14 @@ using namespace std;
 		return vec3(abs(x), abs(y), abs(z));
 	}
 
+	vec3 vec3::random(std::pair<vec3, vec3> velocityRange) {
+		std::default_random_engine engine;
+		engine.seed(std::random_device{}());
+		std::uniform_real_distribution<> xGenerator(velocityRange.first.x, velocityRange.second.x);
+		std::uniform_real_distribution<> yGenerator(velocityRange.first.y, velocityRange.second.y);
+		std::uniform_real_distribution<> zGenerator(velocityRange.first.z, velocityRange.second.z);
+		return vec3(xGenerator(engine), yGenerator(engine), zGenerator(engine));
+	}
 
 
 

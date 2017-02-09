@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <vector>
+#include <random>
 using namespace std;
 
 #include <GL/glew.h>
@@ -22,6 +23,7 @@ using namespace std;
 #include "graphics.h"
 #include "shapes.h"
 #include "../PhysicsLibrary/SphereCollider.h"
+
 
 // FUNCTIONS
 void render(double currentTime);
@@ -56,6 +58,9 @@ float deltaTime = 0.0f;
 
 int main()
 {
+	std::random_device rd;
+	std::mt19937 e2(rd());
+
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
 

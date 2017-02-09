@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../lib/glm/glm/glm.hpp"
 class vec4 {
 
 public:
@@ -51,6 +51,10 @@ public:
 
 	bool operator==(const vec4& v1);
 
-	bool operator!=(const vec4& v1);	
+	bool operator!=(const vec4& v1);
+
+	static glm::vec4 toGlmVec4(const vec4 & v1);
+
+	glm::vec4 toGlmVec4();
 
 };

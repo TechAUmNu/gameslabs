@@ -1,17 +1,7 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (GamesLabs-BouncingBall.vcxproj, GamesLabs-3.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Source.cpp
-  Shapes.cpp
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(45): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(48): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(153): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\shapes.cpp(157): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-  Graphics.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+d:\games programming\gameslabs\gameslabs-3\particleemitter.h(31): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\games programming\gameslabs\gameslabs-3\source.cpp(84): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\games programming\gameslabs\gameslabs-3\source.cpp(124): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   GamesLabs-3.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-ParticleExplosion.exe
   GamesLabs-3.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-ParticleExplosion.pdb (Partial PDB)

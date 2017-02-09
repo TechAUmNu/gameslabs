@@ -14,11 +14,11 @@ public:
 	bool useGravity = false;
 	bool isKinematic = false;
 	Material material;
-	
+	float mass;
 protected:
 	
 	vec3 dragy;
 	
-	float mass = 1.0f;
+	
 	float drag;
 };

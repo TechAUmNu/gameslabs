@@ -128,13 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="Particle.h" />
     <ClInclude Include="Shapes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>

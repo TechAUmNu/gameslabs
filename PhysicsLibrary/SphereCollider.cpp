@@ -21,7 +21,7 @@ void SphereCollider::update(float deltaTime)
 		}
 		if (position.y <= -8.0f) {
 			float penetration = abs(-8.0f - position.y);
-			cout << penetration << " " << position.y <<  endl;
+			//cout << penetration << " " << position.y <<  endl;
 			const float percent = 0.8; // usually 20% to 80%
 			const float slop = 0.000001; // usually 0.01 to 0.1
 			velocity.y += (fmax(penetration - slop, 0.0f) / 0.1 )* percent;

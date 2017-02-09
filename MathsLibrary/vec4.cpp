@@ -1,6 +1,6 @@
 #include <iostream>
 #include "vec4.h"
-
+#include "../lib/glm/glm/glm.hpp"
 using namespace std;
 
 
@@ -171,4 +171,10 @@ vec4::~vec4() {
 		return (v1.x != x) || (v1.y != y) || (v1.z != z) || (v1.w != z);
 	}
 
+	glm::vec4 vec4::toGlmVec4(const vec4& v1) {
+		return glm::vec4(v1.x, v1.y, v1.z, v1.w);
+	}
 
+	glm::vec4 vec4::toGlmVec4() {
+		return glm::vec4(x, y, z, w);
+	}
