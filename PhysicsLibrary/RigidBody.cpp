@@ -16,6 +16,8 @@ using namespace std;
 	void RigidBody::update(float deltaTime) {
 		
 		if (!isKinematic) {
+			
+			
 			vec3 forceGrav;
 			forceGrav = vec3::zero();
 			forceGrav.y = -9.81f * mass;
@@ -45,11 +47,13 @@ using namespace std;
 			}
 			
 			//vec3 dragForce = ((velocity*velocity) * drag * 1 / 2);
-			acceleration = ((forceGrav + dragy) / mass);
-			
 			if (useGravity) {
-			//	acceleration.y += -9.81f;
+				acceleration = ((forceGrav + dragy) / mass);
 			}
+			else {
+				acceleration = ((dragy) / mass);
+			}
+			
 			velocity += acceleration * deltaTime;
 			//cout << velocity.x << " " << velocity.y << " " << velocity.z <<  endl;
 			position += velocity *  deltaTime;

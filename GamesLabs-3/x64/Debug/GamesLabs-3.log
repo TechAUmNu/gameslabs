@@ -1,7 +1,7 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (GamesLabs-BouncingBall.vcxproj, GamesLabs-3.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Source.cpp
-d:\games programming\gameslabs\gameslabs-3\particleemitter.h(31): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\games programming\gameslabs\gameslabs-3\source.cpp(84): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\games programming\gameslabs\gameslabs-3\source.cpp(124): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  GamesLabs-3.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-ParticleExplosion.exe
-  GamesLabs-3.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-ParticleExplosion.pdb (Partial PDB)
+d:\temp games\gameslabs\gameslabs-3\particleemitter.h(31): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\temp games\gameslabs\gameslabs-3\source.cpp(84): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\temp games\gameslabs\gameslabs-3\source.cpp(126): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  GamesLabs-3.vcxproj -> D:\Temp games\gameslabs\x64\Debug\GamesLabs-ParticleExplosion.exe
+  GamesLabs-3.vcxproj -> D:\Temp games\gameslabs\x64\Debug\GamesLabs-ParticleExplosion.pdb (Partial PDB)

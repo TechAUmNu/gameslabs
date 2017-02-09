@@ -17,12 +17,12 @@ public:
 
 	void emit(int particleCount);
 
-
+	vec3 position;
 	std::vector<Particle> particles;
 protected:
 
 	
-	vec3 position, acceleration;
+	vec3 acceleration;
 	bool gravity;
 	std::pair<float, float> massRange, dragRange, lifeTimeRange, fadeDelayRange, fadeRateRange;
 	std::pair<vec3, vec3> velocityRange;
