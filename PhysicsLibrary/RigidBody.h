@@ -17,7 +17,7 @@ public:
 	float mass;
 protected:
 	
-	vec3 dragy;
+	vec3 dragy = vec3::zero();
 	
 	
 	float drag;

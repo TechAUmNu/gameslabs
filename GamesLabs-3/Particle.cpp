@@ -1,6 +1,7 @@
 #include "Particle.h"
+
 #include <iostream>
-Particle::Particle(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass, float lifespan, std::pair<vec4, vec4> colourRange) : RigidBody(position, velocity, force, material, drag, gravity, mass)
+Particle::Particle(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass, float lifespan, std::pair<vec4, vec4> colourRange) : SphereCollider(position, velocity, force, material, drag, gravity, mass, mass)
 {
 	this->lifespan = lifespan;
 	this->lifespanCount = lifespan;
@@ -14,7 +15,7 @@ void Particle::update(float deltaTime) {
 	//std::cout << lifespanCount << std::endl;
 	if (lifespanCount > 0) {
 		lifespanCount -= deltaTime;
-		RigidBody::update(deltaTime);
+		SphereCollider::update(deltaTime);
 		colour.w = lifespanCount / lifespan;
 
 

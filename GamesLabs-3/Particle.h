@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "../PhysicsLibrary/RigidBody.h"
+#include "../PhysicsLibrary/SphereCollider.h"
 #include "../MathsLibrary/vec4.h"
 #include <vector>
 
-class Particle : public RigidBody{
+class Particle : public SphereCollider {
 public:
 
 	Particle(vec3 position, vec3 velocity, vec3 force, Material material, float drag, bool gravity, float mass, float lifespan, std::pair<vec4, vec4> colourRange);

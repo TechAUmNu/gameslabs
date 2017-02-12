@@ -48,7 +48,7 @@ Sphere		mySphere;
 //Material materialSteel(0.4f, 0.1f, 0.5f);
 //SphereCollider sphere(vec3(-2.0f, 8.0f, -20.0f), vec3::zero(), vec3::zero(), materialRubber, 0.001f, true, 1.0f, 2.0f);
 //SphereCollider sphere2(vec3(2.0f, 8.0f, -20.0f), vec3::zero(), vec3::zero(), materialSteel, 0.2f, true, 1.0f, 2.0f);
-ParticleEmitter particleEmitter(vec3(0.0f, 2.0f, -20.0f), vec3(0,0,0), std::pair<vec4, vec4>(vec4(1.0f, 0.0f, 0.0f, 1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f)),std::pair<float, float>(0.001f, 0.03f), std::pair<float, float>(2.0f, 3.0f), 0, std::pair<vec3, vec3>(vec3(-20.0f, -20.0f, -20.0f), vec3(20.0f, 20.0f, 20.0f)),false, std::pair<float, float>(0.01f, 0.2f));
+ParticleEmitter particleEmitter(vec3(0.0f, 2.0f, -20.0f), vec3(0,0,0), std::pair<vec4, vec4>(vec4(1.0f, 0.0f, 0.0f, 1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f)),std::pair<float, float>(0.001f, 0.03f), std::pair<float, float>(2.0f, 5.0f), 0, std::pair<vec3, vec3>(vec3(-20.0f, -20.0f, -20.0f), vec3(20.0f, 20.0f, 20.0f)),true, std::pair<float, float>(0.01f, 0.2f));
 
 
 float t = 0.001f;			// Global variable for animation

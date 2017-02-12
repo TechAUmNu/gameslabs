@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamesLabs-ParticleExplosion", "GamesLabs-3\GamesLabs-3.vcxproj", "{C9E3A7FF-E98D-4C51-A4F7-D2E08F998B8E}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -18,6 +18,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathsLibrary", "MathsLibrary\MathsLibrary.vcxproj", "{D372F0C0-3CF6-47F8-A6E2-3FD98D1BDA30}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsLibrary", "PhysicsLibrary\PhysicsLibrary.vcxproj", "{54498B3B-A8A7-4413-8C91-F6E997DF552F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamesLabs-Flocking", "GamesLabs-Flocking\GamesLabs-Flocking.vcxproj", "{487FB7C4-55DE-433F-B06E-30D90DE788DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,14 @@ Global
 		{54498B3B-A8A7-4413-8C91-F6E997DF552F}.Release|x64.Build.0 = Release|x64
 		{54498B3B-A8A7-4413-8C91-F6E997DF552F}.Release|x86.ActiveCfg = Release|Win32
 		{54498B3B-A8A7-4413-8C91-F6E997DF552F}.Release|x86.Build.0 = Release|Win32
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Debug|x64.ActiveCfg = Debug|x64
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Debug|x64.Build.0 = Debug|x64
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Debug|x86.ActiveCfg = Debug|Win32
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Debug|x86.Build.0 = Debug|Win32
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Release|x64.ActiveCfg = Release|x64
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Release|x64.Build.0 = Release|x64
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Release|x86.ActiveCfg = Release|Win32
+		{487FB7C4-55DE-433F-B06E-30D90DE788DB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

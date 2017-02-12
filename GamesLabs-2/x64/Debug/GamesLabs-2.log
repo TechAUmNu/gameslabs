@@ -1,20 +1,20 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (GamesLabs-ParticleExplosion.vcxproj, GamesLabs-2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Source.cpp
-d:\temp games\gameslabs\gameslabs-2\source.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\source.cpp(130): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\source.cpp(131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\gameslabs\gameslabs-2\source.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\gameslabs\gameslabs-2\source.cpp(130): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\gameslabs\gameslabs-2\source.cpp(131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Shapes.cpp
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(45): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(48): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(153): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-d:\temp games\gameslabs\gameslabs-2\shapes.cpp(157): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(45): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(48): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(55): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(153): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+d:\gameslabs\gameslabs-2\shapes.cpp(157): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
   Graphics.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  GamesLabs-2.vcxproj -> D:\Temp games\gameslabs\x64\Debug\GamesLabs-BouncingBall.exe
-  GamesLabs-2.vcxproj -> D:\Temp games\gameslabs\x64\Debug\GamesLabs-BouncingBall.pdb (Partial PDB)
+  GamesLabs-2.vcxproj -> D:\gameslabs\x64\Debug\GamesLabs-BouncingBall.exe
+  GamesLabs-2.vcxproj -> D:\gameslabs\x64\Debug\GamesLabs-BouncingBall.pdb (Partial PDB)
