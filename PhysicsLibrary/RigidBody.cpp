@@ -55,7 +55,7 @@ using namespace std;
 			}
 			
 			velocity += acceleration * deltaTime;
-			cout << velocity.x << " " << velocity.y << " " << velocity.z <<  endl;
+			//cout << velocity.x << " " << velocity.y << " " << velocity.z <<  endl;
 			position += velocity *  deltaTime;
 			
 		}

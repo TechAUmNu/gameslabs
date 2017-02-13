@@ -1,16 +1,2 @@
-﻿  SphereCollider.cpp
-d:\gameslabs\physicslibrary\spherecollider.cpp(25): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(26): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(27): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\gameslabs\physicslibrary\spherecollider.cpp(44): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(45): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(61): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(62): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(78): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\gameslabs\physicslibrary\spherecollider.cpp(79): warning C4305: 'initializing': truncation from 'double' to 'float'
-  RigidBody.cpp
-  Material.cpp
-d:\gameslabs\physicslibrary\material.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
-  BoxCollider.cpp
-  Generating Code...
-  PhysicsLibrary.vcxproj -> D:\gameslabs\x64\Debug\PhysicsLibrary.lib
+﻿  RigidBody.cpp
+  PhysicsLibrary.vcxproj -> C:\git\gameslabs\x64\Debug\PhysicsLibrary.lib

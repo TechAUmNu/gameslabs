@@ -24,6 +24,10 @@ using namespace std;
 
 #include "Boid.h"
 
+extern "C"
+{
+	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
 // FUNCTIONS
 void render(double currentTime);
 void update(double currentTime);

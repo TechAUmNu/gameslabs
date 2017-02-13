@@ -1,0 +1,8 @@
+﻿  Pathfinder.cpp
+c:\git\gameslabs\gameslabs-astar\pathfinder.cpp(25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\git\gameslabs\gameslabs-astar\pathfinder.cpp(100): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\git\gameslabs\gameslabs-astar\pathfinder.cpp(104): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\git\gameslabs\gameslabs-astar\pathfinder.cpp(259): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  GamesLabs-Astar.vcxproj -> C:\git\gameslabs\x64\Debug\GamesLabs-Astar.exe
+  GamesLabs-Astar.vcxproj -> C:\git\gameslabs\x64\Debug\GamesLabs-Astar.pdb (Partial PDB)
