@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamesLabs-ParticleExplosion", "GamesLabs-3\GamesLabs-3.vcxproj", "{C9E3A7FF-E98D-4C51-A4F7-D2E08F998B8E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamesLabs-ParticleExplosion", "GamesLabs-ParticleExplosion\GamesLabs-ParticleExplosion.vcxproj", "{C9E3A7FF-E98D-4C51-A4F7-D2E08F998B8E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{54498B3B-A8A7-4413-8C91-F6E997DF552F} = {54498B3B-A8A7-4413-8C91-F6E997DF552F}
 		{D372F0C0-3CF6-47F8-A6E2-3FD98D1BDA30} = {D372F0C0-3CF6-47F8-A6E2-3FD98D1BDA30}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamesLabs-BouncingBall", "GamesLabs-2\GamesLabs-2.vcxproj", "{460D53E0-5968-4454-805F-20B575DCDE16}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamesLabs-BouncingBall", "GamesLabs-BouncingBall\GamesLabs-BouncingBall.vcxproj", "{460D53E0-5968-4454-805F-20B575DCDE16}"
 	ProjectSection(ProjectDependencies) = postProject
 		{54498B3B-A8A7-4413-8C91-F6E997DF552F} = {54498B3B-A8A7-4413-8C91-F6E997DF552F}
 		{D372F0C0-3CF6-47F8-A6E2-3FD98D1BDA30} = {D372F0C0-3CF6-47F8-A6E2-3FD98D1BDA30}

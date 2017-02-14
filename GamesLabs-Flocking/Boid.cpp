@@ -2,64 +2,79 @@
 #include <iostream>
 #include <random>
 
-#define desiredSeparation 4.0f
-#define neighbordist 5.0f
+/* Boid rule factors */
+#define NEIGHBOURHOOD_DIST 5.0f
+#define ALIGNMENT_FACTOR 0.025f
+#define COHESION_FACTOR 0.04f
+#define SEPERATION_FACTOR 0.04f
+#define WANDER_FACTOR 0.01f
+#define MAX_VELOCITY 5.0f
 
 Boid::Boid(vec3 position) : RigidBody(position, vec3::zero(), vec3::zero(), material, 0, false, 1)
 {
-}
-
-Boid::Boid() : RigidBody(vec3(0,0,-20), velocity, dragy, material, 0, false, 0.5)
-{	
-	position = vec3(0, 0, -20);
-	velocity = vec3(1, 1, 1);
-	dragy = vec3::zero();
-}
-	
-
-// Called every frame
-void Boid::update(float deltaTime, Boid *boids[], int numberOfBoids) {
-	float alignmentFactor = 0.025f;
-	float cohesionFactor = 0.04f;
-	float seperationFactor = 0.04f;
-	float wanderFactor = 0.05f;
-
-	/*float alignmentFactor = 0.0f;
-	float cohesionFactor =1.0f;
-	float seperationFactor = 0.0f;
-	float wanderFactor = 0.0f;
-	*/
-	std::default_random_engine engine;
+	/* Random wander */
 	engine.seed(std::random_device{}());
-	std::uniform_real_distribution<float> wanderGenerator(-1.0f, 1.0f);
-	
+	wanderGenerator = std::uniform_real_distribution<float>(-1.0f, 1.0f);
+}
 	
 
-	vec3 alignment = computeAlignment(boids, numberOfBoids);
-	vec3 cohesion = computeCohesion(boids, numberOfBoids);
-	vec3 separation = computeSeparation(boids, numberOfBoids);
+/* Called every frame */
+void Boid::update(float deltaTime, Boid *boids[], int numberOfBoids) {
+	
+	/* Reset variables */
+	neighbourCount = 0;
+	alignment.set(0, 0, 0);
+	cohesion.set(0, 0, 0);
+	separation.set(0, 0, 0);
+	
+	/* Optimized Boid rules calculations*/
+	for (int i = 0; i < numberOfBoids; i++) {
+		if (boids[i] != this) {
+			if (distanceFrom(boids[i]) < NEIGHBOURHOOD_DIST)
+			{
+				alignment += boids[i]->velocity;
+				cohesion += boids[i]->position;
+				separation += boids[i]->position - position;
+				neighbourCount++;
+			}
+		}
+	}
+	
+	if (neighbourCount != 0) {		
+		alignment /= neighbourCount;
+		alignment.normalize(1);		
+		
+		cohesion /= neighbourCount;
+		cohesion -= position;
+		cohesion.normalize(1);
 
-	velocity += alignment * alignmentFactor + cohesion * cohesionFactor + separation * seperationFactor + wanderGenerator(engine) * wanderFactor;
+		separation /= neighbourCount;
+		separation *= -1;
+		separation.normalize(1);		
+	}	
+
+	/* Calculate velocity change based on flocking rules and factors */
+	velocity += alignment * ALIGNMENT_FACTOR + cohesion * COHESION_FACTOR + separation * SEPERATION_FACTOR + wanderGenerator(engine) * WANDER_FACTOR;
+	
+	/* Normalize to get back to direction vector*/
 	velocity.normalize(1);
-	//std::cout << velocity.x << std::endl;
-	velocity *= 5;
+
+	/* Constant velocity */
+	velocity *= MAX_VELOCITY;
 	
-
-
-	float perspective = 10.0f;// *abs(position.z);
-
-	if (position.x > 5 * perspective) {
-		position.x = -5 * perspective;
+	/* Wrapping */
+	if (position.x > 50) {
+		position.x = -50;
 	}
-	if (position.x < -5 * perspective) {
-		position.x = 5 * perspective;
+	if (position.x < -50) {
+		position.x = 50;
 	}
 	
-	if (position.y > 3 * perspective) {
-		position.y = -3 * perspective;
+	if (position.y > 30) {
+		position.y = -30;
 	}
-	if (position.y < -3 * perspective) {
-		position.y = 3 * perspective;
+	if (position.y < -30) {
+		position.y = 30;
 	}
 
 	if (position.z > -50) {
@@ -68,92 +83,14 @@ void Boid::update(float deltaTime, Boid *boids[], int numberOfBoids) {
 	if (position.z < -100) {
 		position.z = -50;
 	}
+	/* Update the underlying RigidBody */
 	RigidBody::update(deltaTime);
 
 }
 
-vec3 Boid::computeAlignment(Boid *boids[], int numberOfBoids)
-{
-	neighborCount = 0;
-	vec3 v = vec3::zero();
-	for (int i = 0; i < numberOfBoids; i++) {
-		if (boids[i] != this) {
-			if (distanceFrom(boids[i]) < neighbordist)
-			{
-				v += boids[i]->velocity;
-				neighborCount++;
-			}
-		}	
-	}
-	
-	if (neighborCount == 0)
-		return v;
-
-	v /= neighborCount;	
-	v.normalize(1);
-	return v;
-}
-
-vec3 Boid::computeCohesion(Boid *boids[], int numberOfBoids)
-{
-	neighborCount = 0;
-	vec3 v = vec3::zero();
-	for (int i = 0; i < numberOfBoids; i++) {
-		if (boids[i] != this) {
-			if (distanceFrom(boids[i]) < neighbordist)
-			{
-				v += boids[i]->position;				
-				neighborCount++;
-			}
-		}
-	}
-
-	if (neighborCount == 0)
-		return v;
-
-	v /= neighborCount;	
-	v -= position;
-	v.normalize(1);
-	return v;
-}
-
-vec3 Boid::computeSeparation(Boid *boids[], int numberOfBoids)
-{
-	neighborCount = 0;
-	vec3 v = vec3::zero();
-	for (int i = 0; i < numberOfBoids; i++) {
-		if (boids[i] != this) {
-			if (distanceFrom(boids[i]) < desiredSeparation)
-			{
-				v += boids[i]->position - position;
-				neighborCount++;
-			}
-		}
-	}
-
-	if (neighborCount == 0)
-		return v;
-
-	v /= neighborCount;	
-	v *= -1;	
-	v.normalize(1);
-	return v;
-}
-
+/* Distance of this boid from another */
 float Boid::distanceFrom(Boid *boid)
 {
-	return (boid->position - position).magnitude();
-}
-
-
-float Boid::rotationX() {
-	return acos(velocity.normalize(1).x);	
-}
-
-float Boid::rotationY() {
-	return acos(velocity.normalize(1).z);
-}
-
-float Boid::rotationZ() {
-	return acos(velocity.normalize(1).z);
+	vec3::subtractFast(temp, &boid->position, &position);
+	return temp->magnitude();
 }

@@ -25,6 +25,8 @@ public:
 
 	vec3 operator-(float scalar);
 
+	static void subtractFast(vec3* temp, vec3* lhs, vec3* rhs);
+
 	vec3 operator*(const vec3& v1);
 
 	vec3 operator*(float scalar);
@@ -93,5 +95,7 @@ public:
 	static vec3 random(std::pair<vec3, vec3> velocityRange);
 
 	vec3 normalize(float multiplier);
+
+	vec3* set(float x, float y, float z);
 
 };
