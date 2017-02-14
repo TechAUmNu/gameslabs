@@ -84,9 +84,6 @@
 			z / scalar));
 	};
 
-	
-
-
 
 
 	vec3 vec3::operator+=(const vec3& v1) {
@@ -251,6 +248,15 @@
 		y = (y / length) * multiplier;
 		z = (z / length) * multiplier;		
 		return *this;
+	};
+	
+	vec3 * vec3::set(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+
+		return this;
 	};
 
 

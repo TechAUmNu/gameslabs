@@ -31,6 +31,11 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 	Point *current = NULL;
 	Point *child;
 
+	if (!start->walkable || !end->walkable) {
+		/* If start or end are not walkable then return empty path */
+		return path;
+	}
+
 	// Define the open and the close list
 	list<Point*> openList;
 	list<Point*> closedList;
@@ -42,7 +47,7 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 	openList.push_back(start);
 	start->opened = true;
 
-	while (n == 0 || (current != end && n < 30))
+	while (n == 0 || (current != end && n < 500))
 	{
 		// Look for the smallest F value in the openList and make it the current point
 		for (i = openList.begin(); i != openList.end(); ++i)
@@ -106,7 +111,7 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 				// If it's already in the openList
 				if (child->opened)
 				{
-					// If it has a wroste g score than the one that pass through the current point
+					// If it has a worse g score than the one that pass through the current point
 					// then its path is improved when it's parent is the current point
 					if (child->getGScore() > child->getGScore(current))
 					{
@@ -136,10 +141,7 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 	{
 		(*i)->opened = false;
 	}
-	for (i = closedList.begin(); i != closedList.end(); ++i)
-	{
-		(*i)->closed = false;
-	}
+	
 
 	// Resolve the path starting from the end point
 	while (current->hasParent() && current != start)
@@ -151,6 +153,23 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 		}
 		n++;
 	}
+	if (path.front() != &end->position) {
+		/* No path to end so return empty path */
+		path.clear();
+		return path;
+	}
+	
+	cout << endl << "Traversal:";
+	
+	for (i = closedList.begin(); i != closedList.end(); ++i)
+	{
+		cout << "(" << (*i)->position.x << "," << (*i)->position.y << ")";
+	}
+	for (i = closedList.begin(); i != closedList.end(); ++i)
+	{		
+		(*i)->closed = false;
+	}
+	cout << endl;
 
 	return path;
 }
@@ -180,19 +199,49 @@ bool Pathfinder::pointIsWalkable(int x, int y)
 	return (pointExists(x, y) && grid[x][y]->walkable);
 }
 
-void Pathfinder::displayPath(vector<Position*> path) {
-	for (int y = 0; y < 9; y++) 
+void Pathfinder::displayPath(vector<Position*> path, int sizeX, int sizeY) {
+	cout << "   ";
+	for (int x = 0; x < sizeX; x++)
 	{
-		for (int x = 0; x < 9; x++)    
+		if (x < 10) {
+			cout << x << "  ";
+		}
+		else {
+			cout << x << " ";
+		}
+	}
+	cout << endl ;
+
+	for (int y = 0; y < sizeY; y++)
+	{
+		if (y < 10) {
+			cout << y << "  ";
+		}
+		else {
+			cout << y << " ";
+		}
+
+
+		for (int x = 0; x < sizeX; x++)
 		{
 			
 			if (grid[x][y]->walkable) {
 				bool filled = false;
 				for (int i = 0; i < path.size(); i++) {
 					if (path[i]->x == grid[x][y]->position.x && path[i]->y == grid[x][y]->position.y) {
-						cout << "P" << "  ";
+						if (path[i] == path.back()) {
+							cout << "S" << "  ";
+						}else if (path[i] == path.front()) {
+							cout << "E" << "  ";
+						}
+						else {
+							cout << "P" << "  ";							
+						}
+						
+						
 						filled = true;
 						break;
+						path.end();
 					}
 				}
 				if (!filled) {					

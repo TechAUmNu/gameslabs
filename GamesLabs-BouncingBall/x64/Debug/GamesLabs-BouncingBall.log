@@ -1,8 +1,8 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (GamesLabs-ParticleExplosion.vcxproj, GamesLabs-2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Source.cpp
-c:\git\gameslabs\gameslabs-bouncingball\source.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\git\gameslabs\gameslabs-bouncingball\source.cpp(130): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\git\gameslabs\gameslabs-bouncingball\source.cpp(131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\git\gameslabs\gameslabs-bouncingball\source.cpp(65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\git\gameslabs\gameslabs-bouncingball\source.cpp(96): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\git\gameslabs\gameslabs-bouncingball\source.cpp(97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Shapes.cpp
 c:\git\gameslabs\gameslabs-bouncingball\shapes.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\git\gameslabs\gameslabs-bouncingball\shapes.cpp(31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data

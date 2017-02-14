@@ -96,4 +96,6 @@ public:
 
 	vec3 normalize(float multiplier);
 
+	vec3* set(float x, float y, float z);
+
 };

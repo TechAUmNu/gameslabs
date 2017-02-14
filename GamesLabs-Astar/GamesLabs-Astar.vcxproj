@@ -19,19 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Pathfinder.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Position.cpp" />
-    <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Pathfinder.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Position.h" />
-    <ClInclude Include="Shapes.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FC86BBCD-17F8-417C-946B-AD892DB0A413}</ProjectGuid>

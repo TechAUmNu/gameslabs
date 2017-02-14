@@ -1,15 +1,3 @@
-// Simplified Renderer application for GP course
-// Code is similar to the one in lab 1 but all the graphics sections were refactored into the Graphics Class.
-// Extra improvements:
-// Reduced OpenGL version from 4.5 to 3.3 to allow it to render in older laptops.
-// Added Shapes library for rendering cubes, spheres and vectors.
-// Added examples of matrix multiplication on Update.
-// Added resize screen and keyboard callbacks.
-// 
-// Suggestions or extra help please do email me S.Padilla@hw.ac.uk
-//
-// Note: Do not forget to link the libraries correctly and add the GLEW DLL in your debug/release folder.
-
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -27,10 +15,7 @@ using namespace std;
 #include "Boid.h"
 #include <random>
 
-extern "C"
-{
-	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
-}
+
 // FUNCTIONS
 void render(double currentTime);
 void update(double currentTime);
@@ -44,19 +29,15 @@ bool		running = true;
 Graphics	myGraphics;		// Runing all the graphics in this object
 
 Arrow		arrow;
-Sphere		sphere;
 
-const int numberOfBoids = 200;
+const int numberOfBoids = 100;
 Boid *boids[numberOfBoids];
 
-
-float t = 0.001f;			// Global variable for animation
 float deltaTime = 0.0f;
 
 
 int main()
-{
-	
+{	
 	int errorGraphics = myGraphics.Init();		// Launch window and graphics context
 	if (errorGraphics) return 0;				//Close if something went wrong...
 
@@ -65,7 +46,6 @@ int main()
 	// Mixed graphics and update functions - declared in main for simplicity.
 	glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
 	glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
-
 	
 	double currentTime = 0;
 	// MAIN LOOP run until the window is closed
@@ -80,9 +60,13 @@ int main()
 
 		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
 		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
-		deltaTime = glfwGetTime() - currentTime;
-		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		deltaTime = glfwGetTime() - currentTime;		
 	} while (running);
+
+	/* Cleanup the boids */
+	for (int i = 0; i < numberOfBoids; i++) {
+		delete boids[i];
+	}
 
 	myGraphics.endProgram();			// Close and clean everything up...
 
@@ -99,21 +83,11 @@ void startup() {
 	myGraphics.proj_matrix = glm::perspective(glm::radians(50.0f), myGraphics.aspect, 0.1f, 1000.0f);
 
 	// Load Geometry
-
-	sphere.Load();
-	sphere.fillColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);	// You can change the shape fill colour, line colour or linewidth 
-
-	arrow.Load();
-	arrow.fillColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); arrow.lineColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	arrow.Load();	
 	
 	myGraphics.SetOptimisations();		// Cull and depth testing
-	
 
-
-
-
-	// Randomize boids positions and velocities
-
+	/* Randomize boids positions and velocities */
 	std::default_random_engine engine;
 	engine.seed(std::random_device{}());
 	std::uniform_real_distribution<float> positionXYGenerator(-5.0f, 5.0f);
@@ -129,38 +103,37 @@ void startup() {
 }
 
 void update(double deltaTime) {
-		
-
+	/* Update position of boids */
 	for (int i = 0; i < numberOfBoids; i++) {
 		boids[i]->update(deltaTime, boids, numberOfBoids);
 	}
-
-	//Calculate Arrows translations (note: arrow model points up)
-	
-		
-	//cout << "(" << boids[0].computeCohesion(boids, numberOfBoids).x << ", " << boids[0].computeCohesion(boids, numberOfBoids).y << ", " <<  boids[0].computeCohesion(boids, numberOfBoids).z << endl;
-
-
-	
-	
 }
 
 void render(double deltaTime) {
-	// Clear viewport - start a new frame.
-	myGraphics.ClearViewport();
-		
+	/* Clear viewport - start a new frame. */
+	myGraphics.ClearViewport();		
+	
+	glm::vec4 colour;
+	vec3 direction;
+	glm::mat4 mv_matrix;
 
+	/* Render the boids using arrows */
 	for (int i = 0; i < numberOfBoids; i++) {
-		vec3 direction = boids[i]->velocity.normalize(1);
+		
+		/* Normalize velocity to get a direction vector */
+		direction = boids[i]->velocity.normalize(1);
 
-		glm::mat4 mv_matrix =
+		/* Calculate model_view matrix */
+		mv_matrix =
 			glm::translate(glm::vec3(boids[i]->position.x, boids[i]->position.y, boids[i]->position.z)) *
 			glm::orientation(glm::vec3(direction.x, direction.y, direction.z), glm::vec3(vec3::up().x, vec3::up().y, vec3::up().z)) *
 			glm::scale(glm::vec3(boids[i]->mass, boids[i]->mass, boids[i]->mass)) *
 			glm::mat4(1.0f);
-		glm::vec4 colour = boids[i]->colour.toGlmVec4();
+		
+		/* Set the colour of the boid */
+		colour = boids[i]->colour.toGlmVec4();
 		arrow.fillColor = colour; arrow.lineColor = colour;
-
+		
 		arrow.mv_matrix = mv_matrix;
 		arrow.proj_matrix = myGraphics.proj_matrix;
 
@@ -170,7 +143,8 @@ void render(double deltaTime) {
 	
 }
 
-void onResizeCallback(GLFWwindow* window, int w, int h) {	// call everytime the window is resized
+/* Called when the window is resized */
+void onResizeCallback(GLFWwindow* window, int w, int h) {	
 	myGraphics.windowWidth = w;
 	myGraphics.windowHeight = h;
 
@@ -178,10 +152,8 @@ void onResizeCallback(GLFWwindow* window, int w, int h) {	// call everytime the 
 	myGraphics.proj_matrix = glm::perspective(glm::radians(50.0f), myGraphics.aspect, 0.1f, 1000.0f);
 }
 
-void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) { // called everytime a key is pressed
+/* Called when a key is pressed */
+void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) { 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
-	
-	
-
 }

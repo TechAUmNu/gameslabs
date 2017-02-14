@@ -1,130 +1,90 @@
-// Simplified Renderer application for GP course
-// Code is similar to the one in lab 1 but all the graphics sections were refactored into the Graphics Class.
-// Extra improvements:
-// Reduced OpenGL version from 4.5 to 3.3 to allow it to render in older laptops.
-// Added Shapes library for rendering cubes, spheres and vectors.
-// Added examples of matrix multiplication on Update.
-// Added resize screen and keyboard callbacks.
-// 
-// Suggestions or extra help please do email me S.Padilla@hw.ac.uk
-//
-// Note: Do not forget to link the libraries correctly and add the GLEW DLL in your debug/release folder.
-
 #include <iostream>
 #include <vector>
 using namespace std;
 
-//#include <GL/glew.h>
-//#include <GLFW/glfw3.h>
-//#include <GLM/glm.hpp>
-//#include <GLM/gtx/transform.hpp>
-
-//#include "graphics.h"
-//#include "shapes.h"
-
 #include "Pathfinder.h"
-
-
-// FUNCTIONS
-//void render(double currentTime);
-//void update(double currentTime);
-void startup();
-//void onResizeCallback(GLFWwindow* window, int w, int h);
-//void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-// VARIABL
-//bool		running = true;
-
-//Graphics	myGraphics;		// Runing all the graphics in this object
+#include <random>
 
 Pathfinder pathfinder;
-//Sphere		sphere;
-
-
-//float t = 0.001f;			// Global variable for animation
-//float deltaTime = 0.0f;
-
 
 int main()
 {
 	
-	//int errorGraphics = myGraphics.Init();		// Launch window and graphics context
-	//if (errorGraphics) return 0;				//Close if something went wrong...
+	std::default_random_engine engine;
+	engine.seed(std::random_device{}());
 
-	startup();									// Setup all necessary information for startup (aka. load texture, shaders, models, etc).
+	/* 30% probability of a wall */
+	std::bernoulli_distribution walkable(0.7); 
 	
-	// Mixed graphics and update functions - declared in main for simplicity.
-	//glfwSetWindowSizeCallback(myGraphics.window, onResizeCallback);			// Set callback for resize
-	//glfwSetKeyCallback(myGraphics.window, onKeyCallback);					// Set Callback for keys
+	/* Create a random grid*/
+	int sizeX = 20;
+	int sizeY = 20;
+	for (int x = 0; x < sizeX; x++) {
+		for (int y = 0; y < sizeY; y++) {
+			pathfinder.addPoint(x, y, walkable(engine));
+		}
+	}
 
+	/* Blank path to allow display of grid */
+	vector<Position*> blankPath;
+
+	/* Loop till a valid path is found*/
+	while (true) {
+		/* Display the grid */
+		pathfinder.displayPath(blankPath, sizeX, sizeY);
+
+		
+		int x, y, x1, y1;
+
+		/* Loop till valid start position is entered */
+		while (true) {
+			cout << "Enter Start Position: " << endl;
+			cin >> x >> y;
+
+			if (pathfinder.pointIsWalkable(x, y)) {				
+				break;
+			}
+			else {
+				cout << "Start Position not valid!" << endl;
+			}
+		}
 	
-	//double currentTime = 0;
-	// MAIN LOOP run until the window is closed
-	//do {										
-	//	currentTime = glfwGetTime();		// retrieve timelapse		
+		/* Loop till valid end position is entered */
+		while (true) {
+			cout << "Enter End Position: " << endl;
+			cin >> x1 >> y1;
+
+			if (pathfinder.pointIsWalkable(x1, y1)) {				
+				break;
+			}
+			else {
+				cout << "End Position not valid!" << endl;
+			}
+		}
+
+		/* Find the path between the points */
+		vector<Position*> path = pathfinder.aStar(x, y, x1, y1);
 		
-	//	glfwPollEvents();						// poll callbacks
-	//	update(deltaTime);					// update (physics, animation, structures, etc)
-	//	render(deltaTime);					// call render function.
+		/* If a path was found */
+		if (path.size() != 0) {
+			/* Print the points of the path */
 
-	//	glfwSwapBuffers(myGraphics.window);		// swap buffers (avoid flickering and tearing)
+			cout << "Path: " << endl;
+			for (int i = 0; i < path.size(); i++) {
+				cout << "(" << path[i]->x << "," << path[i]->y << ")" ;
+			}
+			cout << endl;
+			/* Display the grid with the path */
+			pathfinder.displayPath(path, sizeX, sizeY);
+			break;
+		}else{
+			cout << "No path between points!" << endl;
+		}
+	}
 
-	//	running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
-	//	running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
-	//	deltaTime = glfwGetTime() - currentTime;
-		
-	//} while (running);
-		//myGraphics.endProgram();			// Close and clean everything up...
-
+	/* delay closing console to read debugging errors. */
 	cout << "\nPress any key to continue...\n";
-	cin.ignore(); cin.get(); // delay closing console to read debugging errors.
+	cin.ignore(); cin.get();
 
 	return 0;
 }
-
-void startup() {
-	
-	//pathfinder.addStaticObject()
-	for (int x = 0; x < 10; x++) {
-		for (int y = 0; y < 10; y++) {
-			pathfinder.addPoint(x, y, true);
-		}
-	}
-	pathfinder.addPoint(2, 0, false);
-	pathfinder.addPoint(2, 1, false);
-	pathfinder.addPoint(2, 2, false);
-	pathfinder.addPoint(2, 3, false);
-	pathfinder.addPoint(2, 4, false);
-	pathfinder.addPoint(2, 5, false);
-	pathfinder.addPoint(2, 6, false);
-	
-
-	vector<Position*> path = pathfinder.aStar(0, 0, 6, 6);
-	for (int i = 0; i < path.size(); i++) {
-		cout << "(" << path[i]->x << "," << path[i]->y << ")" << endl;
-	}
-
-
-	pathfinder.displayPath(path);
-
-}
-
-//void update(double deltaTime) {	}
-
-//void render(double deltaTime) {
-	// Clear viewport - start a new frame.
-	//myGraphics.ClearViewport();	
-//}
-
-//void onResizeCallback(GLFWwindow* window, int w, int h) {	// call everytime the window is resized
-	//myGraphics.windowWidth = w;
-	//myGraphics.windowHeight = h;
-
-	//myGraphics.aspect = (float)w / (float)h;
-	//myGraphics.proj_matrix = glm::perspective(glm::radians(50.0f), myGraphics.aspect, 0.1f, 1000.0f);
-//}
-
-//void onKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) { // called everytime a key is pressed
-//	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-//		glfwSetWindowShouldClose(window, GLFW_TRUE);
-//}

@@ -5,12 +5,7 @@
 #include <random>
 using namespace std;
 
-
-
-
-
-
-	// populated constructor
+// populated constructor
 vec4::vec4(float x, float y, float z, float w) {
 		this->x = x;
 		this->y = y;
@@ -18,7 +13,7 @@ vec4::vec4(float x, float y, float z, float w) {
 		this->w = w;
 	}
 
-	// default constructor
+// default constructor
 vec4::vec4() {
 	}
 
