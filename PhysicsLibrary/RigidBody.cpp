@@ -18,9 +18,7 @@ using namespace std;
 		if (!isKinematic) {
 			
 			
-			vec3 forceGrav;
-			forceGrav = vec3::zero();
-			forceGrav.y = -9.81f * mass;
+			
 
 			if (velocity.y > 0) {
 
@@ -48,6 +46,9 @@ using namespace std;
 			
 			//vec3 dragForce = ((velocity*velocity) * drag * 1 / 2);
 			if (useGravity) {
+				vec3 forceGrav;
+				forceGrav = vec3::zero();
+				forceGrav.y = -9.81f * mass;
 				acceleration = ((forceGrav + dragy) / mass);
 			}
 			else {

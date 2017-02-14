@@ -13,16 +13,19 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+#include <chrono>
+#include <thread>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GLM/glm.hpp>
 #include <GLM/gtx/transform.hpp>
+#include <GLM/gtx/rotate_vector.hpp>
 
 #include "graphics.h"
 #include "shapes.h"
 
 #include "Boid.h"
+#include <random>
 
 extern "C"
 {
@@ -43,8 +46,8 @@ Graphics	myGraphics;		// Runing all the graphics in this object
 Arrow		arrow;
 Sphere		sphere;
 
-const int numberOfBoids = 10;
-Boid boids[numberOfBoids];
+const int numberOfBoids = 300;
+Boid *boids[numberOfBoids];
 
 
 float t = 0.001f;			// Global variable for animation
@@ -78,7 +81,7 @@ int main()
 		running &= (glfwGetKey(myGraphics.window, GLFW_KEY_ESCAPE) == GLFW_RELEASE);	// exit if escape key pressed
 		running &= (glfwWindowShouldClose(myGraphics.window) != GL_TRUE);
 		deltaTime = glfwGetTime() - currentTime;
-		
+		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	} while (running);
 
 	myGraphics.endProgram();			// Close and clean everything up...
@@ -104,7 +107,23 @@ void startup() {
 	arrow.fillColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); arrow.lineColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 	
 	myGraphics.SetOptimisations();		// Cull and depth testing
+	
 
+
+
+
+	// Randomize boids positions and velocities
+
+	std::default_random_engine engine;
+	engine.seed(std::random_device{}());
+	std::uniform_real_distribution<float> positionXYGenerator(-5.0f, 5.0f);
+	std::uniform_real_distribution<float> positionZGenerator(-100.0f, -30.0f);
+	std::uniform_real_distribution<float> velocityGenerator(-100.0f, 100.0f);
+
+	for (int i = 0; i < numberOfBoids; i++) {
+		boids[i] = new Boid(vec3(positionXYGenerator(engine), positionXYGenerator(engine), positionZGenerator(engine)));		
+		boids[i]->velocity = vec3(velocityGenerator(engine), velocityGenerator(engine), velocityGenerator(engine));
+	}
 
 }
 
@@ -112,13 +131,13 @@ void update(double deltaTime) {
 		
 
 	for (int i = 0; i < numberOfBoids; i++) {
-		boids[i].update(deltaTime, boids, numberOfBoids);
+		boids[i]->update(deltaTime, boids, numberOfBoids);
 	}
 
 	//Calculate Arrows translations (note: arrow model points up)
 	
 		
-	
+	//cout << "(" << boids[0].computeCohesion(boids, numberOfBoids).x << ", " << boids[0].computeCohesion(boids, numberOfBoids).y << ", " <<  boids[0].computeCohesion(boids, numberOfBoids).z << endl;
 
 
 	
@@ -131,15 +150,18 @@ void render(double deltaTime) {
 		
 
 	for (int i = 0; i < numberOfBoids; i++) {
+		vec3 direction = boids[i]->velocity.normalize(1);
+
 		glm::mat4 mv_matrix =
-			glm::translate(glm::vec3(boids[i].position.x, boids[i].position.y, boids[i].position.z)) *
-			glm::scale(glm::vec3(boids[i].mass, boids[i].mass, boids[i].mass)) *
+			glm::translate(glm::vec3(boids[i]->position.x, boids[i]->position.y, boids[i]->position.z)) *
+			glm::orientation(glm::vec3(direction.x, direction.y, direction.z), glm::vec3(vec3::up().x, vec3::up().y, vec3::up().z)) *
+			glm::scale(glm::vec3(boids[i]->mass, boids[i]->mass, boids[i]->mass)) *
 			glm::mat4(1.0f);
 
-		sphere.mv_matrix = mv_matrix;
-		sphere.proj_matrix = myGraphics.proj_matrix;
+		arrow.mv_matrix = mv_matrix;
+		arrow.proj_matrix = myGraphics.proj_matrix;
 
-		sphere.Draw();
+		arrow.Draw();
 	}
 	
 	

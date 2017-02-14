@@ -6,7 +6,7 @@ Pathfinder::Pathfinder()
 {
 }
 
-void Pathfinder::addStaticObject(int x, int y, bool walkable)
+void Pathfinder::addPoint(int x, int y, bool walkable)
 {	
 	if (!pointExists(x, y))
 	{
@@ -18,106 +18,16 @@ void Pathfinder::addStaticObject(int x, int y, bool walkable)
 	}
 }
 
-vector<Position*> Pathfinder::getPath(float x1, float y1, float x2, float y2, float s)
-{
-	vector<Position*> path;
 
-	if (pointIsWalkable(x2, y2))
-	{
-		// Calculate line direction
-		int const dx = (x1 < x2) ? 1 : -1;
-		int const dy = (y1 < y2) ? 1 : -1;
 
-		bool pathIsWalkable = true;
-
-		s /= 4.f;
-
-		// Get traversing points
-		list<Point*> points1;
-		list<Point*> points2;
-		list<Point*>::iterator i;
-		points1 = getTraversingPoints(x1 + (s * dx), y1 - (s * dy), x2 + (s * dx), y2 - (s * dy));
-		points2 = getTraversingPoints(x1 - (s * dx), y1 + (s * dy), x2 - (s * dx), y2 + (s * dy));
-		points1.merge(points2);
-
-		// Check if the direct path is safe
-		for (i = points1.begin(); i != points1.end() && pathIsWalkable; ++i)
-		{
-			pathIsWalkable = (*i)->walkable;
-		}
-
-		if (pathIsWalkable)
-		{
-			path.push_back(new Position(x2, y2));
-		}
-		else
-		{
-			path = aStar(x1, y1, x2, y2);
-		}
-	}
-	else
-	{
-		cout << "not walkable" << endl;
-	}
-
-	return path;
-}
-
-list<Point*> Pathfinder::getTraversingPoints(float x1, float y1, float x2, float y2)
-{
-	list<Point*> points;
-
-	// Calculate m and b for the line equation:
-	float const m = ((x1 == x2) ? 0.f : ((y2 - y1) / (x2 - x1)));
-	float const b = ((y1 + 32.f) / 64.f) - (m * ((x1 + 32.f) / 64.f));
-
-	// Calculate line direction
-	float const dx = (x1 < x2) ? 1.f : -1.f;
-	float const dy = (y1 < y2) ? 1.f : -1.f;
-
-	// Gather points
-	Point *current = getPointFromCoord(x1, y1);
-	Point *end = getPointFromCoord(x2, y2);
-
-	points.push_back(current);
-
-	unsigned int n = 0;
-
-	// While we do not reach the end position
-	while (current != end && n < 10)
-	{
-		// Get x next's value and check if it changes
-		if (m == 0.f || floor(((((dy == 1) ? current->getYf() + dy : current->getYf()) - b) / m)) == current->getX())
-		{
-			if (!pointExists(current->getX(), current->getY() + (int)dy))
-			{
-				return points;
-			}
-			current = getPoint(current->getX(), current->getY() + (int)dy);
-		}
-		else
-		{
-			if (!pointExists(current->getXf() + (int)dx, current->getY()))
-			{
-				return points;
-			}
-			current = getPoint(current->getXf() + (int)dx, current->getY());
-		}
-		n++;
-
-		// Add this point to the list
-		points.push_back(current);
-	}
-	return points;
-}
 
 vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 {
 	vector<Position*> path;
 
 	// Define points to work with
-	Point *start = getPointFromCoord(x1, y1);
-	Point *end = getPointFromCoord(x2, y2);
+	Point *start = grid[x1][y1];
+	Point *end = grid[x2][y2];
 	Point *current = NULL;
 	Point *child;
 
@@ -168,8 +78,9 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 					continue;
 				}
 
-				// Get this point
-				child = getPoint(current->getX() + x, current->getY() + y);
+				// Get this point	
+				child = getPoint(current->position.x + x, current->position.y + y);
+				
 
 				// If it's closed or not walkable then pass
 				if (child->closed || !child->walkable)
@@ -181,12 +92,12 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 				if (x != 0 && y != 0)
 				{
 					// if the next horizontal point is not walkable or in the closed list then pass
-					if (!pointIsWalkable(current->getX(), current->getY() + y) || getPoint(current->getX(), current->getY() + y)->closed)
+					if (!pointIsWalkable(current->position.x, current->position.y + y) || getPoint(x,y)->closed)
 					{
 						continue;
 					}
 					// if the next vertical point is not walkable or in the closed list then pass
-					if (!pointIsWalkable(current->getX() + x, current->getY()) || getPoint(current->getX() + x, current->getY())->closed)
+					if (!pointIsWalkable(current->position.x + x, current->position.y) || getPoint(x, y)->closed)
 					{
 						continue;
 					}
@@ -233,13 +144,17 @@ vector<Position*> Pathfinder::aStar(float x1, float y1, float x2, float y2)
 	// Resolve the path starting from the end point
 	while (current->hasParent() && current != start)
 	{
-		path.push_back(current->getPosition());
-		current = current->getParent();
+		path.push_back(&current->position);
+		current = current->parent;
+		if (current == start) {
+			path.push_back(&current->position);
+		}
 		n++;
 	}
 
 	return path;
 }
+
 
 Point* Pathfinder::getPoint(int x, int y)
 {
@@ -249,15 +164,11 @@ Point* Pathfinder::getPoint(int x, int y)
 	}
 	else
 	{
-		cout << "ERROR: failed to gather point " << x << "x" << y << " on grid" << endl;
+		//cout << "ERROR: failed to gather point " << x << "x" << y << " on grid" << endl;
 		return new Point(0, 0, false);
 	}
 }
 
-Point* Pathfinder::getPointFromCoord(float x, float y)
-{
-	return getPoint(x, y);
-}
 
 bool Pathfinder::pointExists(int x, int y)
 {
@@ -268,4 +179,32 @@ bool Pathfinder::pointIsWalkable(int x, int y)
 {
 	return (pointExists(x, y) && grid[x][y]->walkable);
 }
+
+void Pathfinder::displayPath(vector<Position*> path) {
+	for (int y = 0; y < 9; y++) 
+	{
+		for (int x = 0; x < 9; x++)    
+		{
+			
+			if (grid[x][y]->walkable) {
+				bool filled = false;
+				for (int i = 0; i < path.size(); i++) {
+					if (path[i]->x == grid[x][y]->position.x && path[i]->y == grid[x][y]->position.y) {
+						cout << "P" << "  ";
+						filled = true;
+						break;
+					}
+				}
+				if (!filled) {					
+					cout << "." << "  ";					
+				}
+			}
+			else {
+				cout << "X" << "  ";
+			}
+		}
+		cout << endl;
+	}
+}
+
 

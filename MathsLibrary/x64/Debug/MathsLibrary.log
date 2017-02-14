@@ -1,6 +1,5 @@
 ﻿  vec4.cpp
   vec3.cpp
-c:\git\gameslabs\mathslibrary\vec3.cpp(237): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  vec2.cpp
+d:\games programming\gameslabs\mathslibrary\vec3.cpp(237): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  MathsLibrary.vcxproj -> C:\git\gameslabs\x64\Debug\MathsLibrary.lib
+  MathsLibrary.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\MathsLibrary.lib

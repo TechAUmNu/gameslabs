@@ -11,16 +11,18 @@ public:
 	Boid();
 
 
-	void update(float deltaTime, Boid boids[], int numberOfBoids);
+	void update(float deltaTime, Boid *boids[], int numberOfBoids);
 
-	vec3 computeAlignment(Boid boids[], int numberOfBoids);
-
-	
-	vec3 computeCohesion(Boid boids[], int numberOfBoids);
-	vec3 computeSeparation(Boid boids[], int numberOfBoids);
-	float distanceFrom(Boid boid);
+	vec3 computeAlignment(Boid *boids[], int numberOfBoids);
 
 	
+	vec3 computeCohesion(Boid *boids[], int numberOfBoids);
+	vec3 computeSeparation(Boid *boids[], int numberOfBoids);
+	float distanceFrom(Boid *boid);
+
+	float rotationX();
+	float rotationY();
+	float rotationZ();
 protected:
 	float neighborCount;	
 };

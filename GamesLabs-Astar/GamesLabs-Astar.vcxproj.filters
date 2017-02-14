@@ -24,9 +24,6 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,9 +39,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shapes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">

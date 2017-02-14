@@ -1,10 +1,15 @@
 #include "Boid.h"
 #include <iostream>
+#include <random>
+
+#define desiredSeparation 4.0f
+#define neighbordist 5.0f
+
 Boid::Boid(vec3 position) : RigidBody(position, vec3::zero(), vec3::zero(), material, 0, false, 1)
 {
 }
 
-Boid::Boid() : RigidBody(vec3(0,0,-20), velocity, dragy, material, 0, false, 1)
+Boid::Boid() : RigidBody(vec3(0,0,-20), velocity, dragy, material, 0, false, 0.5)
 {	
 	position = vec3(0, 0, -20);
 	velocity = vec3(1, 1, 1);
@@ -13,27 +18,69 @@ Boid::Boid() : RigidBody(vec3(0,0,-20), velocity, dragy, material, 0, false, 1)
 	
 
 // Called every frame
-void Boid::update(float deltaTime, Boid boids[], int numberOfBoids) {
+void Boid::update(float deltaTime, Boid *boids[], int numberOfBoids) {
+	float alignmentFactor = 0.025f;
+	float cohesionFactor = 0.04f;
+	float seperationFactor = 0.04f;
+	float wanderFactor = 0.05f;
+
+	/*float alignmentFactor = 0.0f;
+	float cohesionFactor =1.0f;
+	float seperationFactor = 0.0f;
+	float wanderFactor = 0.0f;
+	*/
+	std::default_random_engine engine;
+	engine.seed(std::random_device{}());
+	std::uniform_real_distribution<float> wanderGenerator(-1.0f, 1.0f);
 	
+	
+
 	vec3 alignment = computeAlignment(boids, numberOfBoids);
 	vec3 cohesion = computeCohesion(boids, numberOfBoids);
 	vec3 separation = computeSeparation(boids, numberOfBoids);
 
-	velocity += alignment + cohesion + separation;	
+	velocity += alignment * alignmentFactor + cohesion * cohesionFactor + separation * seperationFactor + wanderGenerator(engine) * wanderFactor;
 	velocity.normalize(1);
+	//std::cout << velocity.x << std::endl;
+	velocity *= 5;
+	
+
+
+	float perspective = 10.0f;// *abs(position.z);
+
+	if (position.x > 5 * perspective) {
+		position.x = -5 * perspective;
+	}
+	if (position.x < -5 * perspective) {
+		position.x = 5 * perspective;
+	}
+	
+	if (position.y > 3 * perspective) {
+		position.y = -3 * perspective;
+	}
+	if (position.y < -3 * perspective) {
+		position.y = 3 * perspective;
+	}
+
+	if (position.z > -50) {
+		position.z = -100;
+	}
+	if (position.z < -100) {
+		position.z = -50;
+	}
 	RigidBody::update(deltaTime);
 
 }
 
-vec3 Boid::computeAlignment(Boid boids[], int numberOfBoids)
+vec3 Boid::computeAlignment(Boid *boids[], int numberOfBoids)
 {
 	neighborCount = 0;
 	vec3 v = vec3::zero();
 	for (int i = 0; i < numberOfBoids; i++) {
-		if (&boids[i] != this) {
-			if (distanceFrom(boids[i]) < 30)
+		if (boids[i] != this) {
+			if (distanceFrom(boids[i]) < neighbordist)
 			{
-				v += velocity;				
+				v += boids[i]->velocity;
 				neighborCount++;
 			}
 		}	
@@ -47,15 +94,15 @@ vec3 Boid::computeAlignment(Boid boids[], int numberOfBoids)
 	return v;
 }
 
-vec3 Boid::computeCohesion(Boid boids[], int numberOfBoids)
+vec3 Boid::computeCohesion(Boid *boids[], int numberOfBoids)
 {
 	neighborCount = 0;
 	vec3 v = vec3::zero();
 	for (int i = 0; i < numberOfBoids; i++) {
-		if (&boids[i] != this) {
-			if (distanceFrom(boids[i]) < 30)
+		if (boids[i] != this) {
+			if (distanceFrom(boids[i]) < neighbordist)
 			{
-				v += position;				
+				v += boids[i]->position;				
 				neighborCount++;
 			}
 		}
@@ -70,15 +117,15 @@ vec3 Boid::computeCohesion(Boid boids[], int numberOfBoids)
 	return v;
 }
 
-vec3 Boid::computeSeparation(Boid boids[], int numberOfBoids)
+vec3 Boid::computeSeparation(Boid *boids[], int numberOfBoids)
 {
 	neighborCount = 0;
 	vec3 v = vec3::zero();
 	for (int i = 0; i < numberOfBoids; i++) {
-		if (&boids[i] != this) {
-			if (distanceFrom(boids[i]) < 3)
+		if (boids[i] != this) {
+			if (distanceFrom(boids[i]) < desiredSeparation)
 			{
-				v += boids[i].position - position;				
+				v += boids[i]->position - position;
 				neighborCount++;
 			}
 		}
@@ -93,8 +140,20 @@ vec3 Boid::computeSeparation(Boid boids[], int numberOfBoids)
 	return v;
 }
 
-float Boid::distanceFrom(Boid boid)
+float Boid::distanceFrom(Boid *boid)
 {
-	return (boid.position - position).magnitude();
+	return (boid->position - position).magnitude();
 }
 
+
+float Boid::rotationX() {
+	return acos(velocity.normalize(1).x);	
+}
+
+float Boid::rotationY() {
+	return acos(velocity.normalize(1).z);
+}
+
+float Boid::rotationZ() {
+	return acos(velocity.normalize(1).z);
+}
