@@ -1,5 +1,6 @@
 #pragma once
 #include "../lib/glm/glm/glm.hpp"
+#include "vec3.h"
 class vec4 {
 
 public:
@@ -56,5 +57,7 @@ public:
 	static glm::vec4 toGlmVec4(const vec4 & v1);
 
 	glm::vec4 toGlmVec4();
+
+	static vec4 random(std::pair<vec3, vec3> range);
 
 };

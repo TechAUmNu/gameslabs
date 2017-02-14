@@ -50,6 +50,12 @@
 			z - scalar));
 	};
 
+	void vec3::subtractFast(vec3 *temp, vec3 *lhs, vec3 *rhs) {
+		temp->x = lhs->x - rhs->x;
+		temp->y = lhs->y - rhs->y;
+		temp->z = lhs->z - rhs->z;
+	}
+
 	vec3 vec3::operator*(const vec3& v1) {
 		return(vec3(
 			x * v1.x,
@@ -220,7 +226,7 @@
 
 	float vec3::magnitude()
 	{		
-		return sqrtf(x*x + y*y + z*z);
+		return sqrtf(pow(x,2) + pow(y, 2) + pow(z, 2));
 	};
 
 	vec3 vec3::absolute()
@@ -228,12 +234,12 @@
 		return vec3(abs(x), abs(y), abs(z));
 	};
 
-	vec3 vec3::random(std::pair<vec3, vec3> velocityRange) {
+	vec3 vec3::random(std::pair<vec3, vec3> range) {
 		std::default_random_engine engine;
 		engine.seed(std::random_device{}());
-		std::uniform_real_distribution<> xGenerator(velocityRange.first.x, velocityRange.second.x);
-		std::uniform_real_distribution<> yGenerator(velocityRange.first.y, velocityRange.second.y);
-		std::uniform_real_distribution<> zGenerator(velocityRange.first.z, velocityRange.second.z);
+		std::uniform_real_distribution<> xGenerator(range.first.x, range.second.x);
+		std::uniform_real_distribution<> yGenerator(range.first.y, range.second.y);
+		std::uniform_real_distribution<> zGenerator(range.first.z, range.second.z);
 		return vec3(xGenerator(engine), yGenerator(engine), zGenerator(engine));
 	};
 

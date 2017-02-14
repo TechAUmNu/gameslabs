@@ -18,11 +18,16 @@ public:
 	
 	vec3 computeCohesion(Boid *boids[], int numberOfBoids);
 	vec3 computeSeparation(Boid *boids[], int numberOfBoids);
+	
 	float distanceFrom(Boid *boid);
 
 	float rotationX();
 	float rotationY();
 	float rotationZ();
+
+	vec4 colour;
 protected:
 	float neighborCount;	
+
+	vec3* temp = new vec3(0,0,0);
 };

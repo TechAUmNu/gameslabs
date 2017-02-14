@@ -24,20 +24,52 @@ void Boid::update(float deltaTime, Boid *boids[], int numberOfBoids) {
 	float seperationFactor = 0.04f;
 	float wanderFactor = 0.05f;
 
-	/*float alignmentFactor = 0.0f;
-	float cohesionFactor =1.0f;
-	float seperationFactor = 0.0f;
-	float wanderFactor = 0.0f;
-	*/
 	std::default_random_engine engine;
 	engine.seed(std::random_device{}());
 	std::uniform_real_distribution<float> wanderGenerator(-1.0f, 1.0f);
-	
-	
 
-	vec3 alignment = computeAlignment(boids, numberOfBoids);
-	vec3 cohesion = computeCohesion(boids, numberOfBoids);
-	vec3 separation = computeSeparation(boids, numberOfBoids);
+	vec3 alignment;
+	vec3 cohesion;
+	vec3 separation;
+
+	neighborCount = 0;
+	vec3 vA = vec3::zero();
+	vec3 vC = vec3::zero();
+	vec3 vS = vec3::zero();
+	for (int i = 0; i < numberOfBoids; i++) {
+		if (boids[i] != this) {
+			if (distanceFrom(boids[i]) < neighbordist)
+			{
+				vA += boids[i]->velocity;
+				vC += boids[i]->position;
+				vS += boids[i]->position - position;
+				neighborCount++;
+			}
+		}
+	}
+
+	if (neighborCount == 0) {
+		alignment = vA;
+		cohesion = vC;
+		separation = vS;
+	}
+	else {
+		vA /= neighborCount;
+		vA.normalize(1);
+		alignment = vA;
+
+		vC /= neighborCount;
+		vC -= position;
+		vC.normalize(1);
+		cohesion = vC;
+
+
+		vS /= neighborCount;
+		vS *= -1;
+		vS.normalize(1);
+		separation = vS;
+	}
+	
 
 	velocity += alignment * alignmentFactor + cohesion * cohesionFactor + separation * seperationFactor + wanderGenerator(engine) * wanderFactor;
 	velocity.normalize(1);
@@ -121,6 +153,7 @@ vec3 Boid::computeSeparation(Boid *boids[], int numberOfBoids)
 {
 	neighborCount = 0;
 	vec3 v = vec3::zero();
+	
 	for (int i = 0; i < numberOfBoids; i++) {
 		if (boids[i] != this) {
 			if (distanceFrom(boids[i]) < desiredSeparation)
@@ -142,7 +175,8 @@ vec3 Boid::computeSeparation(Boid *boids[], int numberOfBoids)
 
 float Boid::distanceFrom(Boid *boid)
 {
-	return (boid->position - position).magnitude();
+	vec3::subtractFast(temp, &boid->position, &position);
+	return temp->magnitude();
 }
 
 

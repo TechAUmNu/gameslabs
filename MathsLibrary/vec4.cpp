@@ -1,6 +1,8 @@
 #include <iostream>
 #include "vec4.h"
+#include "vec3.h"
 #include "../lib/glm/glm/glm.hpp"
+#include <random>
 using namespace std;
 
 
@@ -178,3 +180,12 @@ vec4::~vec4() {
 	glm::vec4 vec4::toGlmVec4() {
 		return glm::vec4(x, y, z, w);
 	}
+
+	vec4 vec4::random(std::pair<vec3, vec3> range) {
+		std::default_random_engine engine;
+		engine.seed(std::random_device{}());
+		std::uniform_real_distribution<> xGenerator(range.first.x, range.second.x);
+		std::uniform_real_distribution<> yGenerator(range.first.y, range.second.y);
+		std::uniform_real_distribution<> zGenerator(range.first.z, range.second.z);		
+		return vec4(xGenerator(engine), yGenerator(engine), zGenerator(engine), 1.0f);
+	};

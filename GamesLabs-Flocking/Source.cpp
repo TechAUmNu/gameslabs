@@ -46,7 +46,7 @@ Graphics	myGraphics;		// Runing all the graphics in this object
 Arrow		arrow;
 Sphere		sphere;
 
-const int numberOfBoids = 300;
+const int numberOfBoids = 200;
 Boid *boids[numberOfBoids];
 
 
@@ -123,6 +123,7 @@ void startup() {
 	for (int i = 0; i < numberOfBoids; i++) {
 		boids[i] = new Boid(vec3(positionXYGenerator(engine), positionXYGenerator(engine), positionZGenerator(engine)));		
 		boids[i]->velocity = vec3(velocityGenerator(engine), velocityGenerator(engine), velocityGenerator(engine));
+		boids[i]->colour = vec4::random(std::pair<vec3,vec3>(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)));
 	}
 
 }
@@ -157,6 +158,8 @@ void render(double deltaTime) {
 			glm::orientation(glm::vec3(direction.x, direction.y, direction.z), glm::vec3(vec3::up().x, vec3::up().y, vec3::up().z)) *
 			glm::scale(glm::vec3(boids[i]->mass, boids[i]->mass, boids[i]->mass)) *
 			glm::mat4(1.0f);
+		glm::vec4 colour = boids[i]->colour.toGlmVec4();
+		arrow.fillColor = colour; arrow.lineColor = colour;
 
 		arrow.mv_matrix = mv_matrix;
 		arrow.proj_matrix = myGraphics.proj_matrix;

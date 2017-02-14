@@ -1,5 +1,3 @@
-﻿  Source.cpp
-d:\games programming\gameslabs\gameslabs-flocking\source.cpp(83): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\games programming\gameslabs\gameslabs-flocking\source.cpp(134): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  GamesLabs-Flocking.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\GamesLabs-Flocking.exe
-  GamesLabs-Flocking.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\GamesLabs-Flocking.pdb (Partial PDB)
+﻿  Boid.cpp
+  GamesLabs-Flocking.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-Flocking.exe
+  GamesLabs-Flocking.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-Flocking.pdb (Partial PDB)

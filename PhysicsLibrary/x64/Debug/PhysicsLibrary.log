@@ -13,4 +13,4 @@ d:\games programming\gameslabs\physicslibrary\spherecollider.cpp(79): warning C4
 d:\games programming\gameslabs\physicslibrary\material.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
   BoxCollider.cpp
   Generating Code...
-  PhysicsLibrary.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\PhysicsLibrary.lib
+  PhysicsLibrary.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\PhysicsLibrary.lib

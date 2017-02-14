@@ -23,5 +23,5 @@ d:\games programming\gameslabs\gameslabs-astar\pathfinder.cpp(100): warning C424
   Graphics.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  GamesLabs-Astar.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\GamesLabs-Astar.exe
-  GamesLabs-Astar.vcxproj -> D:\Games Programming\gameslabs\x64\Debug\GamesLabs-Astar.pdb (Partial PDB)
+  GamesLabs-Astar.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-Astar.exe
+  GamesLabs-Astar.vcxproj -> D:\Games Programming\GamesLabs\x64\Debug\GamesLabs-Astar.pdb (Partial PDB)
