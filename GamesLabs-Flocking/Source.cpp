@@ -30,7 +30,7 @@ Graphics	myGraphics;		// Runing all the graphics in this object
 
 Arrow		arrow;
 
-const int numberOfBoids = 100;
+const int numberOfBoids = 300;
 Boid *boids[numberOfBoids];
 
 float deltaTime = 0.0f;
